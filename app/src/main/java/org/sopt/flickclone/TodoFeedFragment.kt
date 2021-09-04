@@ -17,5 +17,15 @@ class TodoFeedFragment : ViewBindingFragment<FragmentTodoFeedBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        attachEventHandler()
+    }
+
+    private fun attachEventHandler() {
+        binding.btnFeedMove.setOnClickListener {
+            (requireActivity() as MainActivity).swipeFragment(
+                0,
+                true
+            )
+        }
     }
 }

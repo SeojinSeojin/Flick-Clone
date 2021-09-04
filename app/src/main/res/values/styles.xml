@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TEXTVIEW_TITLE">
+        <item name="android:textSize">24dp</item>
+        <item name="android:textColor">@color/gray_900</item>
+        <item name="android:fontFamily">@font/myriad_pro_bold</item>
+    </style>
+
+    <style name="TEXTVIEW_TODO">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/gray_900</item>
+        <item name="android:fontFamily">@font/dohyeon_regular</item>
+    </style>
+
+    <style name="TEXTVIEW_TODO_DONE">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/gray_900</item>
+        <item name="android:fontFamily">@font/dohyeon_regular</item>
+    </style>
+
+    <style name="TEXTVIEW_NORMAL">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/gray_900</item>
+        <item name="android:fontFamily">@font/dohyeon_regular</item>
+    </style>
+</resources>

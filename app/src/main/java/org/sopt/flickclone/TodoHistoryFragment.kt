@@ -17,5 +17,15 @@ class TodoHistoryFragment : ViewBindingFragment<FragmentTodoHistoryBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        attachEventHandler()
+    }
+
+    private fun attachEventHandler() {
+        binding.btnHistoryMove.setOnClickListener {
+            (requireActivity() as MainActivity).swipeFragment(
+                1,
+                true
+            )
+        }
     }
 }
