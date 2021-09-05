@@ -9,7 +9,7 @@
         android:roundIcon="@drawable/ic_android_blue_24dp"
         android:supportsRtl="true"
         android:theme="@style/Theme.FlickClone">
-        <activity android:name=".MainActivity" >
+        <activity android:name=".presentation.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -1,4 +1,4 @@
-package org.sopt.flickclone
+package org.sopt.flickclone.presentation
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

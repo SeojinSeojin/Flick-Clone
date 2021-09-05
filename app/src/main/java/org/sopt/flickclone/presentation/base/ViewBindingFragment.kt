@@ -1,4 +1,4 @@
-package org.sopt.flickclone.base
+package org.sopt.flickclone.presentation.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,10 +1,10 @@
-package org.sopt.flickclone
+package org.sopt.flickclone.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import org.sopt.flickclone.base.ViewBindingFragment
+import org.sopt.flickclone.presentation.base.ViewBindingFragment
 import org.sopt.flickclone.databinding.FragmentTodoFeedBinding
 
 class TodoFeedFragment : ViewBindingFragment<FragmentTodoFeedBinding>() {
