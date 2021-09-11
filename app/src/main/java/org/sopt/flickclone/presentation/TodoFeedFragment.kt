@@ -1,37 +1,26 @@
 package org.sopt.flickclone.presentation
 
-import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.annotation.RequiresApi
+import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
-import org.sopt.flickclone.presentation.base.ViewBindingFragment
+import org.sopt.flickclone.R
 import org.sopt.flickclone.databinding.FragmentTodoFeedBinding
-import org.sopt.flickclone.model.TodoData
 import org.sopt.flickclone.persistance.TodoDao
-import java.sql.Date
-import java.time.LocalDateTime
-import java.time.ZoneId
+import org.sopt.flickclone.presentation.base.DataBindingFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TodoFeedFragment : ViewBindingFragment<FragmentTodoFeedBinding>() {
+class TodoFeedFragment : DataBindingFragment<FragmentTodoFeedBinding>(R.layout.fragment_todo_feed) {
 
     @Inject
     lateinit var todoDao: TodoDao
-
-    override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentTodoFeedBinding {
-        return FragmentTodoFeedBinding.inflate(inflater, container, false)
-    }
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         attachEventHandler()
+        attachViewBinding()
     }
 
     private fun attachEventHandler() {
@@ -41,6 +30,10 @@ class TodoFeedFragment : ViewBindingFragment<FragmentTodoFeedBinding>() {
                 true
             )
         }
+    }
+
+    private fun attachViewBinding() {
+
     }
 
 }

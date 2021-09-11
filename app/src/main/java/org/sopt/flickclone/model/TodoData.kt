@@ -8,8 +8,8 @@ import java.util.*
 @Entity(tableName = "todo_table")
 data class TodoData(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int = 0,
-    @ColumnInfo(name = "createdAt") val createdAt: Date,
-    @ColumnInfo(name = "doneAt") val doneAt: Date? = null,
+    @ColumnInfo(name = "createdAt") val createdAt: Long,
+    @ColumnInfo(name = "doneAt") val doneAt: Long? = null,
     @ColumnInfo(name = "content") val content: String,
     @ColumnInfo(name = "isImportant") val isImportant: Boolean = false
 )

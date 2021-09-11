@@ -11,7 +11,7 @@ import org.sopt.flickclone.model.TodoData
 interface TodoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertToDos(todo: TodoData)
+    fun insertToDo(todo: TodoData)
 
     @Query("SELECT * FROM todo_table WHERE doneAt is NULL ORDER BY createdAt")
     fun getFeedToDos(): Flow<List<TodoData>>
