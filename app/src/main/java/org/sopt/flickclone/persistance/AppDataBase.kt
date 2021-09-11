@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import org.sopt.flickclone.model.TodoData
 
-@Database(entities = [TodoData::class], version = 1, exportSchema = true)
+@Database(entities = [TodoData::class], version = 1, exportSchema = false)
 abstract class AppDataBase : RoomDatabase() {
     abstract fun todoDao(): TodoDao
 }

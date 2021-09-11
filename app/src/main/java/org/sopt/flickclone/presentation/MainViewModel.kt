@@ -1,18 +1,24 @@
 package org.sopt.flickclone.presentation
 
-import android.text.Editable
-import android.text.TextWatcher
-import androidx.lifecycle.ViewModel
+import android.util.Log
+import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import org.sopt.flickclone.model.TodoData
 import org.sopt.flickclone.repository.MainRepository
 import javax.inject.Inject
 
+@HiltViewModel
+class MainViewModel @Inject constructor(private val mainRepository: MainRepository) :
+    ViewModel() {
 
-class MainViewModel @Inject constructor(private val mainRepository: MainRepository) : ViewModel() {
-    var textWatcher: TextWatcher = object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-        override fun afterTextChanged(s: Editable) {
-
+    val historyTodos: LiveData<List<TodoData>> = mainRepository.historyTodos.asLiveData()
+    val feedTodos: LiveData<List<TodoData>> = mainRepository.feedTodos.asLiveData()
+    val inputTodo = MutableLiveData("")
+    fun createTodo() {
+        viewModelScope.launch {
+            Log.d("태그", "insert ${inputTodo.value}")
+            mainRepository.insertTodo(requireNotNull(inputTodo.value))
         }
     }
 }

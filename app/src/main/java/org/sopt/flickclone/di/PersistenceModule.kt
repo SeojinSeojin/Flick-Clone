@@ -22,6 +22,7 @@ object PersistenceModule {
         return Room
             .databaseBuilder(application, AppDataBase::class.java, "todo_table.db")
             .fallbackToDestructiveMigration()
+            .allowMainThreadQueries()
             .build()
     }
 
