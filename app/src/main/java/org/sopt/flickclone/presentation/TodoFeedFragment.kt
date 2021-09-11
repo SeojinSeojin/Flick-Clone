@@ -3,6 +3,7 @@ package org.sopt.flickclone.presentation
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,6 +18,7 @@ class TodoFeedFragment :
     DataBindingFragment<FragmentTodoFeedBinding>(R.layout.fragment_todo_feed) {
 
     private val mainViewModel by activityViewModels<MainViewModel>()
+
     @Inject
     lateinit var todoDao: TodoDao
 
@@ -26,6 +28,7 @@ class TodoFeedFragment :
         attachEventHandler()
         attachTextWatcher()
         attachOnclickListener()
+        showTodoList()
     }
 
     private fun attachEventHandler() {
@@ -52,6 +55,14 @@ class TodoFeedFragment :
         binding.btnFeedCreate.setOnClickListener {
             mainViewModel.createTodo()
         }
+    }
+
+    private fun showTodoList() {
+        val todoAdapter = ToDoAdapter()
+        binding.recyclerviewFeed.adapter = todoAdapter
+        mainViewModel.feedTodos.observe(viewLifecycleOwner, {
+            todoAdapter.setItem(it)
+        })
     }
 
 }

@@ -1,6 +1,5 @@
 package org.sopt.flickclone.presentation
 
-import android.util.Log
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,8 +16,8 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
     val inputTodo = MutableLiveData("")
     fun createTodo() {
         viewModelScope.launch {
-            Log.d("태그", "insert ${inputTodo.value}")
             mainRepository.insertTodo(requireNotNull(inputTodo.value))
+            inputTodo.value = ""
         }
     }
 }
