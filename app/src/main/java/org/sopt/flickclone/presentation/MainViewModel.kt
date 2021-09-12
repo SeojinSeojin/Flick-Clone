@@ -20,4 +20,10 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
             inputTodo.value = ""
         }
     }
+
+    fun completeTodo(todo: TodoData): Unit {
+        viewModelScope.launch {
+            mainRepository.completeTodo(todo)
+        }
+    }
 }

@@ -5,14 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.sopt.flickclone.databinding.ItemTodoFeedBinding
 import org.sopt.flickclone.model.TodoData
+import org.sopt.flickclone.presentation.util.showToast
 
-class ToDoAdapter : RecyclerView.Adapter<ToDoAdapter.TodoViewHolder>() {
+class ToDoAdapter(private val completeTodo: (TodoData) -> Unit) :
+    RecyclerView.Adapter<ToDoAdapter.TodoViewHolder>() {
 
     private val todoList = mutableListOf<TodoData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder =
         TodoViewHolder(
-            ItemTodoFeedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemTodoFeedBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            completeTodo
         )
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
@@ -27,10 +30,18 @@ class ToDoAdapter : RecyclerView.Adapter<ToDoAdapter.TodoViewHolder>() {
         notifyDataSetChanged()
     }
 
-    class TodoViewHolder(private val binding: ItemTodoFeedBinding) :
+    class TodoViewHolder(
+        private val binding: ItemTodoFeedBinding,
+        private val completeTodo: (TodoData) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(todoItem: TodoData) {
             binding.data = todoItem
+            binding.root.setOnLongClickListener {
+                completeTodo(todoItem)
+                binding.root.context.showToast("${todoItem.content}를 완료했습니다!")
+                true
+            }
         }
     }
 

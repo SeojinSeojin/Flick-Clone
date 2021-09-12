@@ -3,7 +3,6 @@ package org.sopt.flickclone.presentation
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,7 +57,7 @@ class TodoFeedFragment :
     }
 
     private fun showTodoList() {
-        val todoAdapter = ToDoAdapter()
+        val todoAdapter = ToDoAdapter { todo -> mainViewModel.completeTodo(todo) }
         binding.recyclerviewFeed.adapter = todoAdapter
         mainViewModel.feedTodos.observe(viewLifecycleOwner, {
             todoAdapter.setItem(it)

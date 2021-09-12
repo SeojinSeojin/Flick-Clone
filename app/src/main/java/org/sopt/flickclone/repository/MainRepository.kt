@@ -18,6 +18,11 @@ class MainRepository @Inject constructor(
         )
     }
 
+    fun completeTodo(todo: TodoData) {
+        todo.doneAt = System.currentTimeMillis()
+        todoDao.updateToDo(todo)
+    }
+
     val feedTodos: Flow<List<TodoData>> = todoDao.getFeedToDos()
     val historyTodos: Flow<List<TodoData>> = todoDao.getHistoryToDos()
 

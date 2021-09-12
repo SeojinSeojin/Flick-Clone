@@ -9,7 +9,7 @@ import java.util.*
 data class TodoData(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int = 0,
     @ColumnInfo(name = "createdAt") val createdAt: Long,
-    @ColumnInfo(name = "doneAt") val doneAt: Long? = null,
-    @ColumnInfo(name = "content") val content: String,
-    @ColumnInfo(name = "isImportant") val isImportant: Boolean = false
+    @ColumnInfo(name = "doneAt") var doneAt: Long? = null,
+    @ColumnInfo(name = "content") var content: String,
+    @ColumnInfo(name = "isImportant") var isImportant: Boolean = false
 )
