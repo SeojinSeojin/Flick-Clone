@@ -26,4 +26,16 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
             mainRepository.completeTodo(todo)
         }
     }
+
+    fun updateTodo(todo: TodoData, newContent: String) {
+        viewModelScope.launch {
+            mainRepository.updateTodo(todo, newContent)
+        }
+    }
+
+    fun deleteTodo(todo: TodoData) {
+        viewModelScope.launch {
+            mainRepository.deleteTodo(todo)
+        }
+    }
 }

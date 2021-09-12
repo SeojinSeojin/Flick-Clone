@@ -57,7 +57,10 @@ class TodoFeedFragment :
     }
 
     private fun showTodoList() {
-        val todoAdapter = ToDoAdapter { todo -> mainViewModel.completeTodo(todo) }
+        val todoAdapter =
+            ToDoAdapter({ todo -> mainViewModel.completeTodo(todo) },
+                { todo, string -> mainViewModel.updateTodo(todo, string) },
+                { todo -> mainViewModel.deleteTodo(todo) })
         binding.recyclerviewFeed.adapter = todoAdapter
         mainViewModel.feedTodos.observe(viewLifecycleOwner, {
             todoAdapter.setItem(it)

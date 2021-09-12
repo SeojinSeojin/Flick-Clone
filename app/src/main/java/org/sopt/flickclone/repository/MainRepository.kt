@@ -23,6 +23,15 @@ class MainRepository @Inject constructor(
         todoDao.updateToDo(todo)
     }
 
+    fun updateTodo(todo: TodoData, newContent: String) {
+        todo.content = newContent
+        todoDao.updateToDo(todo)
+    }
+
+    fun deleteTodo(todo: TodoData) {
+        todoDao.deleteTodo(todo)
+    }
+
     val feedTodos: Flow<List<TodoData>> = todoDao.getFeedToDos()
     val historyTodos: Flow<List<TodoData>> = todoDao.getHistoryToDos()
 

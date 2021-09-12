@@ -41,7 +41,9 @@ class TodoHistoryFragment : ViewBindingFragment<FragmentTodoHistoryBinding>() {
     }
 
     private fun showTodoList() {
-        val todoAdapter = ToDoAdapter { _ -> }
+        val todoAdapter = ToDoAdapter({ _ -> },
+            { _, _ -> },
+            { _ -> })
         binding.recyclerviewHistory.adapter = todoAdapter
         mainViewModel.historyTodos.observe(viewLifecycleOwner, {
             todoAdapter.setItem(it)
