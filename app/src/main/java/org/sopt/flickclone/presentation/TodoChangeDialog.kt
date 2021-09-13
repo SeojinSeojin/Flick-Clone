@@ -14,9 +14,13 @@ class TodoChangeDialog(
     private val updateTodo: (TodoData, String) -> Unit,
     private val deleteTodo: (TodoData) -> Unit
 ) : DialogFragment() {
-    private lateinit var binding: FragmentTodoDialogBinding
+
+    private var _binding: FragmentTodoDialogBinding? = null
+    private val binding: FragmentTodoDialogBinding
+        get() = requireNotNull(_binding)
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        binding = FragmentTodoDialogBinding.inflate(LayoutInflater.from(context))
+        _binding = FragmentTodoDialogBinding.inflate(LayoutInflater.from(context))
         initView()
         return AlertDialog.Builder(requireActivity()).setView(binding.root).create()
     }
@@ -25,13 +29,16 @@ class TodoChangeDialog(
         binding.btnDialogEdit.setOnClickListener {
             val newContent = binding.edittextDialog.text.toString()
             updateTodo(todoItem, newContent)
-            Log.d("태그", "update to $newContent")
             dismiss()
         }
         binding.btnDialogDelete.setOnClickListener {
             deleteTodo(todoItem)
-            Log.d("태그", "delete ${todoItem.content}")
             dismiss()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

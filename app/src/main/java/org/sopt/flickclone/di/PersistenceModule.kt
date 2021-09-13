@@ -1,10 +1,11 @@
 package org.sopt.flickclone.di
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import org.sopt.flickclone.persistance.AppDataBase
@@ -17,12 +18,11 @@ object PersistenceModule {
     @Provides
     @Singleton
     fun provideAppDatabase(
-        application: Application
+        @ApplicationContext appContext: Context
     ): AppDataBase {
         return Room
-            .databaseBuilder(application, AppDataBase::class.java, "todo_table.db")
+            .databaseBuilder(appContext, AppDataBase::class.java, "todo_table.db")
             .fallbackToDestructiveMigration()
-            .allowMainThreadQueries()
             .build()
     }
 

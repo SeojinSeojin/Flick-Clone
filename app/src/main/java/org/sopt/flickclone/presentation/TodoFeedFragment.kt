@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.flickclone.R
@@ -17,9 +18,6 @@ class TodoFeedFragment :
     DataBindingFragment<FragmentTodoFeedBinding>(R.layout.fragment_todo_feed) {
 
     private val mainViewModel by activityViewModels<MainViewModel>()
-
-    @Inject
-    lateinit var todoDao: TodoDao
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,14 +38,9 @@ class TodoFeedFragment :
     }
 
     private fun attachTextWatcher() {
-        val textWatcher: TextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable) {
-                binding.btnFeedCreate.isActivated = s.isNotEmpty()
-            }
+        binding.edittextFeed.doAfterTextChanged {
+            binding.btnFeedCreate.isActivated = it?.isNotEmpty() == true
         }
-        binding.edittextFeed.addTextChangedListener(textWatcher)
     }
 
     private fun attachOnclickListener() {

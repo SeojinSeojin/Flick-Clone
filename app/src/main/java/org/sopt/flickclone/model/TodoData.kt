@@ -3,7 +3,6 @@ package org.sopt.flickclone.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
 
 @Entity(tableName = "todo_table")
 data class TodoData(

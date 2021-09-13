@@ -2,6 +2,8 @@ package org.sopt.flickclone.presentation
 
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.sopt.flickclone.model.TodoData
 import org.sopt.flickclone.repository.MainRepository
@@ -15,26 +17,27 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
     val feedTodos: LiveData<List<TodoData>> = mainRepository.feedTodos.asLiveData()
     val inputTodo = MutableLiveData("")
     fun createTodo() {
-        viewModelScope.launch {
-            mainRepository.insertTodo(requireNotNull(inputTodo.value))
-            inputTodo.value = ""
+        val newTodoContent = inputTodo.value
+        inputTodo.value = ""
+        CoroutineScope(Dispatchers.IO).launch {
+            mainRepository.insertTodo(requireNotNull(newTodoContent))
         }
     }
 
     fun completeTodo(todo: TodoData): Unit {
-        viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             mainRepository.completeTodo(todo)
         }
     }
 
     fun updateTodo(todo: TodoData, newContent: String) {
-        viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             mainRepository.updateTodo(todo, newContent)
         }
     }
 
     fun deleteTodo(todo: TodoData) {
-        viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             mainRepository.deleteTodo(todo)
         }
     }
