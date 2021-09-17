@@ -6,15 +6,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.sopt.flickclone.model.TodoData
-import org.sopt.flickclone.repository.MainRepository
+import org.sopt.flickclone.repository.MainRepositoryImpl
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val mainRepository: MainRepository) :
+class MainViewModel @Inject constructor(private val mainRepository: MainRepositoryImpl) :
     ViewModel() {
 
-    val historyTodos: LiveData<List<TodoData>> = mainRepository.historyTodos.asLiveData()
-    val feedTodos: LiveData<List<TodoData>> = mainRepository.feedTodos.asLiveData()
+    val historyTodos: LiveData<List<TodoData>> = mainRepository.getHistoryTodos().asLiveData()
+    val feedTodos: LiveData<List<TodoData>> = mainRepository.getFeedTodos().asLiveData()
     val inputTodo = MutableLiveData("")
     fun createTodo() {
         val newTodoContent = inputTodo.value
