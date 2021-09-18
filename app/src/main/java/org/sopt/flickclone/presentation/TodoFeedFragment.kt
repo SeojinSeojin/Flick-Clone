@@ -30,10 +30,7 @@ class TodoFeedFragment :
 
     private fun attachEventHandler() {
         binding.btnFeedMove.setOnClickListener {
-            (requireActivity() as MainActivity).swipeFragment(
-                0,
-                true
-            )
+            mainViewModel.setCurrentFragmentPage(0)
         }
     }
 

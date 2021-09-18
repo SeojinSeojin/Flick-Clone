@@ -22,10 +22,7 @@ class TodoHistoryFragment :
 
     private fun attachEventHandler() {
         binding.btnHistoryMove.setOnClickListener {
-            (requireActivity() as MainActivity).swipeFragment(
-                1,
-                true
-            )
+            mainViewModel.setCurrentFragmentPage(1)
         }
     }
 

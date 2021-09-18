@@ -13,6 +13,13 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(private val mainRepository: MainRepositoryImpl) :
     ViewModel() {
 
+    val currentFragmentPage: LiveData<Int>
+        get() = _currentFragmentPage
+    private val _currentFragmentPage = MutableLiveData<Int>()
+    fun setCurrentFragmentPage(pageIndex: Int) {
+        _currentFragmentPage.postValue(pageIndex)
+    }
+
     val historyTodos: LiveData<List<TodoData>> = mainRepository.getHistoryTodos().asLiveData()
     val feedTodos: LiveData<List<TodoData>> = mainRepository.getFeedTodos().asLiveData()
     val inputTodo = MutableLiveData("")
