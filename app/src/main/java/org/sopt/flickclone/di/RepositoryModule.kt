@@ -1,22 +1,19 @@
 package org.sopt.flickclone.di
 
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import org.sopt.flickclone.persistance.TodoDao
 import org.sopt.flickclone.repository.MainRepository
 import org.sopt.flickclone.repository.MainRepositoryImpl
 
 @Module
 @InstallIn(ViewModelComponent::class)
-object RepositoryModule {
+abstract class RepositoryModule {
 
-    @Provides
+    @Binds
     @ViewModelScoped
-    fun provideMainRepository(todoDao: TodoDao): MainRepository {
-        return MainRepositoryImpl(todoDao)
-    }
+    abstract fun bindMainRepository(mainRepositoryImpl: MainRepositoryImpl): MainRepository
 
 }

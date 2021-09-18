@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import org.sopt.flickclone.model.TodoData
@@ -21,13 +22,12 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
         _currentFragmentPage.postValue(pageIndex)
     }
 
-    val historyTodos: LiveData<List<TodoData>> = liveData {
-        mainRepository.getHistoryTodos().flowOn(Dispatchers.IO)
-    }
+    val historyTodos: LiveData<List<TodoData>> =
+        mainRepository.getHistoryTodos().flowOn(Dispatchers.IO).asLiveData()
 
-    val feedTodos: LiveData<List<TodoData>> = liveData {
-        mainRepository.getFeedTodos().flowOn(Dispatchers.IO)
-    }
+    val feedTodos: LiveData<List<TodoData>> =
+        mainRepository.getFeedTodos().flowOn(Dispatchers.IO).asLiveData()
+
 
     val inputTodo = MutableLiveData("")
     fun createTodo() {
