@@ -11,7 +11,7 @@ interface MainRepository {
 
     fun updateTodo(todo: TodoData, newContent: String)
 
-    fun deleteTodo(todo: TodoData)
+    suspend fun deleteTodo(todo: TodoData)
 
     fun getFeedTodos(): Flow<List<TodoData>>
 

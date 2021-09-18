@@ -28,7 +28,7 @@ class MainRepositoryImpl @Inject constructor(
         todoDao.updateToDo(todo)
     }
 
-    override fun deleteTodo(todo: TodoData) {
+    override suspend fun deleteTodo(todo: TodoData) {
         todoDao.deleteTodo(todo)
     }
 

@@ -14,7 +14,7 @@ interface TodoDao {
     fun updateToDo(todo: TodoData)
 
     @Delete
-    fun deleteTodo(todo: TodoData)
+    suspend fun deleteTodo(todo: TodoData)
 
     @Query("SELECT * FROM todo_table WHERE doneAt is NULL ORDER BY createdAt")
     fun getFeedToDos(): Flow<List<TodoData>>
