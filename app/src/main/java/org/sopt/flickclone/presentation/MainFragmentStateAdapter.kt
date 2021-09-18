@@ -8,11 +8,19 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 class MainFragmentStateAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
 
-    private val fragments = arrayOf<Fragment>(TodoHistoryFragment(), TodoFeedFragment())
-
-    override fun createFragment(position: Int): Fragment {
-        return fragments[position]
+    private val todoHistoryFragment: TodoHistoryFragment by lazy {
+        TodoHistoryFragment()
+    }
+    private val todoFeedFragment: TodoFeedFragment by lazy {
+        TodoFeedFragment()
     }
 
-    override fun getItemCount(): Int = fragments.size
+    override fun createFragment(position: Int): Fragment {
+        return when (position) {
+            0 -> todoHistoryFragment
+            else -> todoFeedFragment
+        }
+    }
+
+    override fun getItemCount(): Int = 2
 }

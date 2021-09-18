@@ -10,7 +10,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
 abstract class DataBindingFragment<B : ViewDataBinding>(
-    @LayoutRes val layoutId: Int
+    @LayoutRes private val layoutId: Int
 ) : Fragment() {
     private var _binding: B? = null
     protected val binding: B
