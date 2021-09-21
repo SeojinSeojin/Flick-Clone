@@ -1,6 +1,6 @@
 package org.sopt.flickclone.repository
 
-import kotlinx.coroutines.flow.Flow
+import androidx.paging.DataSource
 import org.sopt.flickclone.model.TodoData
 
 interface MainRepository {
@@ -13,8 +13,8 @@ interface MainRepository {
 
     suspend fun deleteTodo(todo: TodoData)
 
-    fun getFeedTodos(): Flow<List<TodoData>>
+    fun getFeedTodos(): DataSource.Factory<Int, TodoData>
 
-    fun getHistoryTodos(): Flow<List<TodoData>>
+    fun getHistoryTodos(): DataSource.Factory<Int, TodoData>
 
 }

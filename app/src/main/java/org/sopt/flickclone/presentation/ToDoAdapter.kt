@@ -3,6 +3,8 @@ package org.sopt.flickclone.presentation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.internal.managers.ViewComponentManager
 import org.sopt.flickclone.databinding.ItemTodoFeedBinding
@@ -13,7 +15,16 @@ import org.sopt.flickclone.presentation.util.showToast
 class ToDoAdapter(
     private val todoHandler: TodoHandler
 ) :
-    RecyclerView.Adapter<ToDoAdapter.TodoViewHolder>() {
+    PagedListAdapter<TodoData, ToDoAdapter.TodoViewHolder>(DIFF_CALLBACK) {
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TodoData>() {
+            override fun areItemsTheSame(oldItem: TodoData, newItem: TodoData) =
+                oldItem.id == newItem.id
+
+            override fun areContentsTheSame(oldItem: TodoData, newItem: TodoData): Boolean =
+                oldItem == newItem
+        }
+    }
 
     private val todoList = mutableListOf<TodoData>()
 
@@ -35,7 +46,7 @@ class ToDoAdapter(
         notifyDataSetChanged()
     }
 
-    inner class TodoViewHolder(
+    class TodoViewHolder(
         private val binding: ItemTodoFeedBinding,
         private val todoHandler: TodoHandler
     ) :

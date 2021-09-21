@@ -1,5 +1,6 @@
 package org.sopt.flickclone.persistance
 
+import androidx.paging.DataSource
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import org.sopt.flickclone.model.TodoData
@@ -17,8 +18,8 @@ interface TodoDao {
     suspend fun deleteTodo(todo: TodoData)
 
     @Query("SELECT * FROM todo_table WHERE doneAt is NULL ORDER BY createdAt")
-    fun getFeedToDos(): Flow<List<TodoData>>
+    fun getFeedToDos(): DataSource.Factory<Int, TodoData>
 
     @Query("SELECT * FROM todo_table WHERE doneAt is NOT NULL ORDER BY doneAt")
-    fun getHistoryToDos(): Flow<List<TodoData>>
+    fun getHistoryToDos(): DataSource.Factory<Int, TodoData>
 }

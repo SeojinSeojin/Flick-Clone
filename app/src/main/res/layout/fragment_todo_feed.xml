@@ -36,9 +36,11 @@
             app:layout_constraintTop_toTopOf="@id/txt_feed_title" />
 
         <View
+            android:id="@+id/view_feed"
             android:layout_width="0dp"
             android:layout_height="92dp"
             android:background="@color/white"
+            android:translationZ="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -46,12 +48,14 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_feed"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="20dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/view_feed"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_feed_title"
+            tools:itemCount="3"
             tools:listitem="@layout/item_todo_feed" />
 
         <EditText
@@ -67,6 +71,7 @@
             android:inputType="text"
             android:paddingHorizontal="12dp"
             android:text="@={viewModel.inputTodo}"
+            android:translationZ="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -79,6 +84,7 @@
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/selector_btn_create"
+            android:translationZ="2dp"
             app:layout_constraintBottom_toBottomOf="@id/edittext_feed"
             app:layout_constraintEnd_toEndOf="@id/edittext_feed"
             app:layout_constraintTop_toTopOf="@id/edittext_feed" />

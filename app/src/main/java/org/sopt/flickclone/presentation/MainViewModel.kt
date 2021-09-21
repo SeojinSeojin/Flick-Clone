@@ -1,6 +1,8 @@
 package org.sopt.flickclone.presentation
 
 import androidx.lifecycle.*
+import androidx.paging.PagedList
+import androidx.paging.toLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,11 +24,11 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
         _currentFragmentPage.postValue(pageIndex)
     }
 
-    val historyTodos: LiveData<List<TodoData>> =
-        mainRepository.getHistoryTodos().flowOn(Dispatchers.IO).asLiveData()
+    val historyTodos: LiveData<PagedList<TodoData>> =
+        mainRepository.getHistoryTodos().toLiveData(pageSize = 20)
 
-    val feedTodos: LiveData<List<TodoData>> =
-        mainRepository.getFeedTodos().flowOn(Dispatchers.IO).asLiveData()
+    val feedTodos: LiveData<PagedList<TodoData>> =
+        mainRepository.getFeedTodos().toLiveData(pageSize = 20)
 
 
     val inputTodo = MutableLiveData("")

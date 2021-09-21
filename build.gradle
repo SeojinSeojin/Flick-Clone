@@ -11,12 +11,13 @@ buildscript {
         lifecycleVersion = '2.2.0'
         materialVersion = '1.2.1'
         roomVersion = '2.2.5'
+        paging_version = "2.1.2"
+        hiltCoreVersion = '2.38.1'
+        coroutinesVersion = '1.5.0'
         // testing
         junitVersion = '4.13.1'
         espressoVersion = '3.1.0'
         androidxJunitVersion = '1.1.2'
-        hiltCoreVersion = '2.38.1'
-        coroutinesVersion = '1.5.0'
     }
 
     repositories {

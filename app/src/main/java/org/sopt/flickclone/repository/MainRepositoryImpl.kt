@@ -1,5 +1,6 @@
 package org.sopt.flickclone.repository
 
+import androidx.paging.DataSource
 import kotlinx.coroutines.flow.Flow
 import org.sopt.flickclone.model.TodoData
 import org.sopt.flickclone.persistance.TodoDao
@@ -32,8 +33,8 @@ class MainRepositoryImpl @Inject constructor(
         todoDao.deleteTodo(todo)
     }
 
-    override fun getFeedTodos(): Flow<List<TodoData>> = todoDao.getFeedToDos()
+    override fun getFeedTodos(): DataSource.Factory<Int, TodoData> = todoDao.getFeedToDos()
 
-    override fun getHistoryTodos(): Flow<List<TodoData>> = todoDao.getHistoryToDos()
+    override fun getHistoryTodos(): DataSource.Factory<Int, TodoData> = todoDao.getHistoryToDos()
 
 }
