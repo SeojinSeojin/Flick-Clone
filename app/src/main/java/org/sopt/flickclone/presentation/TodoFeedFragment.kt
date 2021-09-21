@@ -1,8 +1,6 @@
 package org.sopt.flickclone.presentation
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
@@ -10,9 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.flickclone.R
 import org.sopt.flickclone.databinding.FragmentTodoFeedBinding
 import org.sopt.flickclone.model.TodoData
-import org.sopt.flickclone.persistance.TodoDao
 import org.sopt.flickclone.presentation.base.DataBindingFragment
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TodoFeedFragment :

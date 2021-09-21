@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.internal.managers.ViewComponentManager
@@ -26,7 +27,7 @@ class ToDoAdapter(
         }
     }
 
-    private val todoList = mutableListOf<TodoData>()
+    private val diffUtil = AsyncListDiffer(this, DIFF_CALLBACK)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder =
         TodoViewHolder(
@@ -35,14 +36,13 @@ class ToDoAdapter(
         )
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-        holder.bind(todoList[position])
+        holder.bind(diffUtil.currentList[position])
     }
 
-    override fun getItemCount(): Int = todoList.size
+    override fun getItemCount(): Int = diffUtil.currentList.size
 
     fun setItem(item: List<TodoData>) {
-        todoList.clear()
-        todoList.addAll(item.toMutableList())
+        diffUtil.submitList(item)
         notifyDataSetChanged()
     }
 
