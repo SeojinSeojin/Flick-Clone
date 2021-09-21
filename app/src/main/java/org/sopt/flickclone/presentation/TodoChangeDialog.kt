@@ -3,7 +3,6 @@ package org.sopt.flickclone.presentation
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
 import org.sopt.flickclone.databinding.FragmentTodoDialogBinding
@@ -11,8 +10,7 @@ import org.sopt.flickclone.model.TodoData
 
 class TodoChangeDialog(
     private val todoItem: TodoData,
-    private val updateTodo: (TodoData, String) -> Unit,
-    private val deleteTodo: (TodoData) -> Unit
+    private val todoHandler: TodoHandler
 ) : DialogFragment() {
 
     private var _binding: FragmentTodoDialogBinding? = null
@@ -28,11 +26,11 @@ class TodoChangeDialog(
     private fun initView() {
         binding.btnDialogEdit.setOnClickListener {
             val newContent = binding.edittextDialog.text.toString()
-            updateTodo(todoItem, newContent)
+            todoHandler.updateTodo(todoItem, newContent)
             dismiss()
         }
         binding.btnDialogDelete.setOnClickListener {
-            deleteTodo(todoItem)
+            todoHandler.deleteTodo(todoItem)
             dismiss()
         }
     }

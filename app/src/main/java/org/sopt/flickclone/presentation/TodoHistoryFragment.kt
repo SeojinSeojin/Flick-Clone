@@ -6,6 +6,7 @@ import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.flickclone.R
 import org.sopt.flickclone.databinding.FragmentTodoHistoryBinding
+import org.sopt.flickclone.model.TodoData
 import org.sopt.flickclone.presentation.base.DataBindingFragment
 
 @AndroidEntryPoint
@@ -27,9 +28,17 @@ class TodoHistoryFragment :
     }
 
     private fun showTodoList() {
-        val todoAdapter = ToDoAdapter({ _ -> },
-            { _, _ -> },
-            { _ -> })
+        val todoAdapter = ToDoAdapter(object : TodoHandler {
+            override fun completeTodo(todoData: TodoData) {}
+
+            override fun updateTodo(todoData: TodoData, newContent: String) {
+                mainViewModel.updateTodo(todoData, newContent)
+            }
+
+            override fun deleteTodo(todoData: TodoData) {
+                mainViewModel.deleteTodo(todoData)
+            }
+        })
         binding.recyclerviewHistory.adapter = todoAdapter
         mainViewModel.historyTodos.observe(viewLifecycleOwner, {
             todoAdapter.setItem(it)

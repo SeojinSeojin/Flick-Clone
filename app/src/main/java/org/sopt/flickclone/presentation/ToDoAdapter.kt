@@ -11,9 +11,7 @@ import org.sopt.flickclone.presentation.util.showToast
 
 
 class ToDoAdapter(
-    private val completeTodo: (TodoData) -> Unit,
-    private val updateTodo: (TodoData, String) -> Unit,
-    private val deleteTodo: (TodoData) -> Unit
+    private val todoHandler: TodoHandler
 ) :
     RecyclerView.Adapter<ToDoAdapter.TodoViewHolder>() {
 
@@ -22,7 +20,7 @@ class ToDoAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder =
         TodoViewHolder(
             ItemTodoFeedBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-            completeTodo
+            todoHandler
         )
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
@@ -39,21 +37,18 @@ class ToDoAdapter(
 
     inner class TodoViewHolder(
         private val binding: ItemTodoFeedBinding,
-        private val completeTodo: (TodoData) -> Unit
+        private val todoHandler: TodoHandler
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(todoItem: TodoData) {
             binding.data = todoItem
             binding.root.setOnLongClickListener {
-                completeTodo(todoItem)
+                todoHandler.completeTodo(todoItem)
                 binding.root.context.showToast("${todoItem.content}를 완료했습니다!")
                 true
             }
             binding.root.setOnClickListener {
-                TodoChangeDialog(todoItem,
-                    { todo, string -> updateTodo(todo, string) },
-                    { todo -> deleteTodo(todo) }
-                ).show(
+                TodoChangeDialog(todoItem, todoHandler).show(
                     ((binding.root.context as ViewComponentManager.FragmentContextWrapper).baseContext as AppCompatActivity).supportFragmentManager,
                     "Dialog"
                 )

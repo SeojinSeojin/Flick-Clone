@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.flickclone.R
 import org.sopt.flickclone.databinding.FragmentTodoFeedBinding
+import org.sopt.flickclone.model.TodoData
 import org.sopt.flickclone.persistance.TodoDao
 import org.sopt.flickclone.presentation.base.DataBindingFragment
 import javax.inject.Inject
@@ -47,10 +48,19 @@ class TodoFeedFragment :
     }
 
     private fun showTodoList() {
-        val todoAdapter =
-            ToDoAdapter({ todo -> mainViewModel.completeTodo(todo) },
-                { todo, string -> mainViewModel.updateTodo(todo, string) },
-                { todo -> mainViewModel.deleteTodo(todo) })
+        val todoAdapter = ToDoAdapter(object : TodoHandler {
+            override fun completeTodo(todoData: TodoData) {
+                mainViewModel.completeTodo(todoData)
+            }
+
+            override fun updateTodo(todoData: TodoData, newContent: String) {
+                mainViewModel.updateTodo(todoData, newContent)
+            }
+
+            override fun deleteTodo(todoData: TodoData) {
+                mainViewModel.deleteTodo(todoData)
+            }
+        })
         binding.recyclerviewFeed.adapter = todoAdapter
         mainViewModel.feedTodos.observe(viewLifecycleOwner, {
             todoAdapter.setItem(it)
